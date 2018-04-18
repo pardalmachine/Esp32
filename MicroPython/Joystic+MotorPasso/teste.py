@@ -43,20 +43,21 @@ driver = ULN2003(15,2,4,5)
 #print('anti-horario')
 #driver.Gira(200,False,0.0011)
 adc = machine.ADC(machine.Pin(36))
-adc.atten(adc.WIDTH_12BIT)
+adc.atten(adc.ATTN_11DB)
+adc.width(adc.WIDTH_12BIT)
 
 while True:
     time.sleep(0.02)
     valor=adc.read()
     direcaohoraria=True
     intervalo=0.0011
-    if valor<1800:
+    if valor<1600:
         direcaohoraria=False
         intervalo=0.0030
         if valor<10:
             intervalo=0.0011
         driver.Gira(5,direcaohoraria,intervalo)
-    if valor>1900:
+    if valor>2500:
         direcaohoraria=True
         intervalo=0.0030
         if valor>4000:
